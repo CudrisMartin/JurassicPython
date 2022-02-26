@@ -1,7 +1,7 @@
 import pygame
 
-#VARIABLES GLOBALES#
-#Caracteristicas#
+###VARIABLES GLOBALES###
+#Recursos#
 fondo=pygame.image.load('Imagenes/Escenario.png')
 icono=pygame.image.load('Imagenes/Dino1idle.png')
 #Colores#
@@ -12,65 +12,56 @@ BlueNigth= (25, 37, 56)
 w=1200
 h=800
 #Inicializar Variables#
-
+FPS=18
 #Auxiliares#
-
+Clock = pygame.time.Clock()
+posicionXFondo=0
+recorrido=0
 #Función Recargar Pantalla#
 def recargaPantalla():
-    #Variables globales
-    if z <=200:
-        Pantalla.fill(BlueSky)
-        if z==200:
-            j+=1
-        
-    elif z>200 and z<290 :
-        Pantalla.fill(Orange)
-        
-    elif z>=290 and z<530:
-        Pantalla.fill(BlueNigth)
-    elif z>=530:
-        j+=1
-        z=0
-   
-    #Fondo en movimiento
-    x_relativa = x % fondo.get_rect().width
+    global posicionXFondo, recorrido
+    colorFondo()
+    x_relativa = posicionXFondo % fondo.get_rect().width
     Pantalla.blit(fondo, (x_relativa - fondo.get_rect().width, 0))
     if x_relativa < w:
+        recorrido +=1
         Pantalla.blit(fondo, (x_relativa, 0))
         pygame.display.flip()
-        z += 1;
-
-    if gameover == True:
-        x+=0    
-    if j ==0 and gameover == False:
-        x -= 15
-    if j ==1 and gameover == False:
-        x -= 20
-    if j >=2 and gameover == False:
-        x -= 25
-    if salto == False:
-        if keys[pygame.K_SPACE]:
-            salto = True
-    #Reiniciar#
-    if keys[pygame.K_KP_ENTER] and gameover == True:
-        x=0
-        i= 0
-        j=0
-        z=0
-        gameover = False
-        pygame.mixer.music.play(-1)
-        ox=1400
-        jugador.image = pygame.transform.scale(pygame.image.load('Imagenes/Dino1idle.png'), (150, 175))
-    
-
+    posicionXFondo-=30
+#Función Color Fondo#
+def colorFondo():
+    global recorrido
+    if recorrido <=200:
+        Pantalla.fill(BlueSky)
+        
+    elif recorrido >200 and recorrido<290 :
+        Pantalla.fill(Orange)
+        
+    elif recorrido >=290 and recorrido<530:
+        Pantalla.fill(BlueNigth)
+    elif recorrido>=530:
+        recorrido=0
 
 pygame.init() #Iniciar Pygame#
-Pantalla = pygame.display.set_mode((w,h))
 
+###CARACTERISTICAS DEL JUEGO###
+#Musica#
+pygame.mixer.music.load('Sonidos/Musica1.mp3')
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(.1)
+
+
+Pantalla = pygame.display.set_mode((w,h))
+Clock = pygame.time.Clock()
 pygame.display.set_icon(icono)
+
+
 ejecutando = True #Bucle del juego#
 while ejecutando:
-  for event in pygame.event.get():
+    keys = pygame.key.get_pressed()
+    Clock.tick(FPS) #FPS#
+    for event in pygame.event.get():
         if event.type == pygame.QUIT:
             ejecutando = False
-  recargaPantalla()
+    recargaPantalla()
+    pygame.display.flip()
