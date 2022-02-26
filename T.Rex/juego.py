@@ -204,6 +204,7 @@ pygame.display.set_icon(icono)
 pygame.display.set_caption('T-rex Runner')
 pygame.mixer.music.load('Sonidos/Musica1.mp3')
 pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(.12)
 #Fondo#
 
 
