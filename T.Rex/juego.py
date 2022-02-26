@@ -88,7 +88,7 @@ def recargaPantalla():
     if salto == False:
         if keys[pygame.K_SPACE]:
             salto = True
-    if keys[pygame.K_ENTER] and gameover == True:
+    if keys[pygame.K_KP_ENTER] and gameover == True:
         x=0
         i= 0
         j=0
