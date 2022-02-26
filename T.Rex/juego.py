@@ -6,7 +6,7 @@ import pygame
 Corriendo = [pygame.image.load('Imagenes/Dino1run1.png'),
              pygame.image.load('Imagenes/Dino1idle.png'),
              pygame.image.load('Imagenes/Dino1run2.png'),
-             pygame.image.load('Imagenes/Dino1run2.png'),
+             pygame.image.load('Imagenes/Dino1idle.png'),
              pygame.image.load('Imagenes/Dino1run1.png'),
              pygame.image.load('Imagenes/Dino1idle.png')]
 
@@ -88,12 +88,15 @@ def recargaPantalla():
     if salto == False:
         if keys[pygame.K_SPACE]:
             salto = True
-    if keys[pygame.K_5] and gameover == True:
+    if keys[pygame.K_ENTER] and gameover == True:
         x=0
         i= 0
         j=0
         z=0
         gameover = False
+        pygame.mixer.music.play(-1)
+        ox=1400
+        jugador.image = pygame.transform.scale(pygame.image.load('Imagenes/Dino1idle.png'), (150, 175))
     
     
 
