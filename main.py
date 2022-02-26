@@ -18,7 +18,6 @@ h=800
 #Función Recargar Pantalla#
 def recargaPantalla():
     #Variables globales
-    global salto, x, i, z, j, ox, gameover
     if z <=200:
         Pantalla.fill(BlueSky)
         if z==200:
@@ -32,8 +31,7 @@ def recargaPantalla():
     elif z>=530:
         j+=1
         z=0
-    
-
+   
     #Fondo en movimiento
     x_relativa = x % fondo.get_rect().width
     Pantalla.blit(fondo, (x_relativa - fondo.get_rect().width, 0))
@@ -43,8 +41,7 @@ def recargaPantalla():
         z += 1;
 
     if gameover == True:
-        x+=0
-            
+        x+=0    
     if j ==0 and gameover == False:
         x -= 15
     if j ==1 and gameover == False:
@@ -54,12 +51,17 @@ def recargaPantalla():
     if salto == False:
         if keys[pygame.K_SPACE]:
             salto = True
-    if keys[pygame.K_5] and gameover == True:
+    #Reiniciar#
+    if keys[pygame.K_KP_ENTER] and gameover == True:
         x=0
         i= 0
         j=0
         z=0
         gameover = False
+        pygame.mixer.music.play(-1)
+        ox=1400
+        jugador.image = pygame.transform.scale(pygame.image.load('Imagenes/Dino1idle.png'), (150, 175))
+    
 
 
 pygame.init() #Iniciar Pygame#
@@ -71,3 +73,4 @@ while ejecutando:
   for event in pygame.event.get():
         if event.type == pygame.QUIT:
             ejecutando = False
+  recargaPantalla()
