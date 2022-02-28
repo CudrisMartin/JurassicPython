@@ -3,15 +3,14 @@ import pygame
 
 
 
-Corriendo = [pygame.image.load('Imagenes/Dino1run1.png'),
-             pygame.image.load('Imagenes/Dino1idle.png'),
-             pygame.image.load('Imagenes/Dino1run2.png'),
-             pygame.image.load('Imagenes/Dino1idle.png'),
-             pygame.image.load('Imagenes/Dino1run1.png'),
-             pygame.image.load('Imagenes/Dino1idle.png')]
+Corriendo = [pygame.image.load('Imagenes/Dinosaurio1.png'),
+             pygame.image.load('Imagenes/Dinosaurio2.png'),
+             pygame.image.load('Imagenes/Dinosaurio3.png'),
+             pygame.image.load('Imagenes/Dinosaurio4.png'),
+             pygame.image.load('Imagenes/Dinosaurio5.png')]
 
-Salto = [pygame.image.load('Imagenes/Dino1run1.png'),
-         pygame.image.load('Imagenes/Dino1idle.png'),]
+Salto = [pygame.image.load('Imagenes/Dinosaurio1.png'),
+         pygame.image.load('Imagenes/Dinosaurio3.png'),]
 
 Enemigo =[pygame.image.load('Imagenes/Dino2run1.png'),
             pygame.image.load('Imagenes/Dino2idle.png'),
@@ -44,6 +43,9 @@ salto = False
 bajar=False
 iEnemigo=0
 gameover = False
+
+correr_actual = 0
+reloj = 0
 
 def recargaPantalla():
     #Variables globales
@@ -121,8 +123,20 @@ class Jugador(pygame.sprite.Sprite):
         global py
         global px
         global bajar
+        global correr_actual
+        global reloj
+
         if corriendo == True:
-            self.image=pygame.transform.scale(Corriendo[i], (150, 175))
+            reloj += 1
+
+            if reloj >= 3:
+                correr_actual += 1
+                reloj = 0
+            
+            if correr_actual >= 5:
+                correr_actual = 0
+
+            self.image=pygame.transform.scale(Corriendo[correr_actual], (150, 175))
             if i>=5 :
                 i=-1
             i += 1
@@ -232,7 +246,7 @@ while ejecutando:
     if colision:
         corriendo= False
         gameover = True 
-        jugador.image = pygame.transform.scale(pygame.image.load('Imagenes/Dino1D.png'), (150, 175))
+        jugador.image = pygame.transform.scale(pygame.image.load('Imagenes/DinosaurioMuerte.png'), (150, 175))
     recargaPantalla()
     sprites.draw(Pantalla)
     enemigos.draw(Pantalla)
