@@ -1,4 +1,6 @@
 import pygame
+from jugador import Jugador
+from obstaculos import Enemigo
 
 ###VARIABLES GLOBALES###
 #Recursos#
