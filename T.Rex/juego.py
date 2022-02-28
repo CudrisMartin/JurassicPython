@@ -99,7 +99,7 @@ def recargaPantalla():
         gameover = False
         pygame.mixer.music.play(-1)
         ox=1400
-        jugador.image = pygame.transform.scale(pygame.image.load('Imagenes/Dino1idle.png'), (150, 175))
+        jugador.image = pygame.transform.scale(pygame.image.load('Imagenes/Dinosaurio1.png'), (150, 175))
     
     
 
