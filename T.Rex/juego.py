@@ -10,7 +10,7 @@ Corriendo = [pygame.image.load('Imagenes/Dino1run1.png'),
              pygame.image.load('Imagenes/Dino1run1.png'),
              pygame.image.load('Imagenes/Dino1idle.png')]
 
-Salto = [pygame.image.load('Imagenes/Dino1idle.png'),
+Salto = [pygame.image.load('Imagenes/Dino1run1.png'),
          pygame.image.load('Imagenes/Dino1idle.png'),]
 
 Enemigo =[pygame.image.load('Imagenes/Dino2run1.png'),
@@ -42,6 +42,7 @@ corriendo= True
 obstaculo= True
 salto = False
 bajar=False
+iEnemigo=0
 gameover = False
 
 def recargaPantalla():
@@ -105,7 +106,7 @@ class Jugador(pygame.sprite.Sprite):
     def __init__(self):
         global salto
         super().__init__()
-        self.image=pygame.transform.scale(Salto[0], (150, 175))
+        self.image=pygame.transform.scale(Corriendo[1], (150, 175))
         self.rect = self.image.get_rect() 
         if salto == False:
             self.rect.center = (px , py)
@@ -128,7 +129,7 @@ class Jugador(pygame.sprite.Sprite):
         if salto == True and gameover == False:
             corriendo = False   
             self.rect.center = (px , py)    
-            if py > 220 and bajar ==False:
+            if py >= 220 and bajar ==False:
                 self.image=pygame.transform.scale(Salto[0], (150, 175))
                 py -=30
             else:
@@ -139,23 +140,23 @@ class Jugador(pygame.sprite.Sprite):
                     bajar = True
                     py +=30
                     if py == 460:
-                        salto=False
+                        salto=False        
                         corriendo= True
-                        bajar = False
                         self.rect.center = (px , py)    
                         k=0
+                        bajar = False
                 
            
 class Obstaculo(pygame.sprite.Sprite):
     
     def __init__(self):    
         super().__init__()
-        self.image = pygame.transform.scale(pygame.image.load('Imagenes/Dino2idle.png'), (120, 120))
+        self.image = pygame.transform.scale(pygame.image.load('Imagenes/Dino2idle.png'), (95, 120))
 
         self.rect = self.image.get_rect()              
        
     def update(self):
-        global i
+        global iEnemigo
         global j
         global ox
         global gameover
@@ -174,10 +175,10 @@ class Obstaculo(pygame.sprite.Sprite):
             
         if ox < 10:
             ox=1400
-        self.image =pygame.transform.scale(Enemigo[i], (120, 120))
-        if i==5:
-                i=-1
-        i += 1 
+        self.image =pygame.transform.scale(Enemigo[iEnemigo], (95, 120))
+        if iEnemigo==5:
+                iEnemigo=-1
+        iEnemigo += 1 
         
        
 
