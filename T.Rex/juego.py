@@ -20,7 +20,7 @@ Enemigo =[pygame.image.load('Imagenes/Dino2run1.png'),
             pygame.image.load('Imagenes/Dino2idle.png')]
 
 #Colores#
-BlueSky= (9, 187, 214)
+BlueSky= (169, 226, 254)
 Orange= (242,172,81)
 BlueNigth= (25, 37, 56)
 #Pantalla#
@@ -161,7 +161,7 @@ class Obstaculo(pygame.sprite.Sprite):
     
     def __init__(self):    
         super().__init__()
-        self.image = pygame.transform.scale(pygame.image.load('Imagenes/Dino2idle.png'), (120, 120))
+        self.image = pygame.transform.scale(pygame.image.load('Imagenes/Piedra.png'), (95, 120))
 
         self.rect = self.image.get_rect()              
        
@@ -185,10 +185,6 @@ class Obstaculo(pygame.sprite.Sprite):
             
         if ox < 10:
             ox=1400
-        self.image =pygame.transform.scale(Enemigo[i], (120, 120))
-        if i>=5:
-                i=-1
-        i += 1 
         
        
 
@@ -211,7 +207,7 @@ enemigos.add(obstaculo)
 
 
     
-fondo=pygame.image.load('Imagenes/Escenario.png')
+fondo=pygame.image.load('Imagenes/Fondo.png')
 
 icono=pygame.image.load('Imagenes/Dino1idle.png')
 pygame.display.set_icon(icono)
