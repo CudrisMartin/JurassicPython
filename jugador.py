@@ -15,6 +15,17 @@ Corriendo = [pygame.image.load('Imagenes/Dinosaurio1.png'),
              pygame.image.load('Imagenes/Dinosaurio1.png'),
              pygame.image.load('Imagenes/Dinosaurio2.png'),]
 
+Agacharse = [pygame.image.load('Imagenes/Agacharse1.png'),
+             pygame.image.load('Imagenes/Agacharse2.png'),
+             pygame.image.load('Imagenes/Agacharse3.png'),
+             pygame.image.load('Imagenes/Agacharse4.png'),
+             pygame.image.load('Imagenes/Agacharse5.png'),
+             pygame.image.load('Imagenes/Agacharse4.png'),
+             pygame.image.load('Imagenes/Agacharse3.png'),
+             pygame.image.load('Imagenes/Agacharse2.png'),
+             pygame.image.load('Imagenes/Agacharse1.png'),
+             pygame.image.load('Imagenes/Agacharse2.png'),]
+
 Salto = [pygame.image.load('Imagenes/Dinosaurio1.png'),
          pygame.image.load('Imagenes/Dinosaurio1.png'),]
 
@@ -31,20 +42,29 @@ k=0
 saltar=False
 gm= False
 bajar=False
+agachado=False
+aux=0
 
 def Saltar(keys , play, gameover):
-    global saltar
+    global saltar, agachado, aux
     global py
     play2=play
     if saltar == False:
         if keys[pygame.K_SPACE] and gameover==False:
             saltar = True
             play2=True
-            
+
+    if keys[pygame.K_DOWN] and gameover==False and saltar==False and play2==True:
+        agachado = True
+        aux+=1
+    else:
+        agachado = False
+        if aux>=1:
+            py=460
+        aux=0
     if gameover==True:
         saltar =False
         
-    
     return play2
 
 def volver():
@@ -70,12 +90,12 @@ class Jugador(pygame.sprite.Sprite):
     def __init__(self):
         global px, py
         super().__init__()
-        self.image=pygame.transform.scale(Muerto[0], (150, 175))
+        self.image=pygame.transform.scale(Quieto[0], (150, 175))
         self.rect = self.image.get_rect() 
         self.rect.center = (px , py) 
         
     def update(self):
-        global corriendo, reloj, correr_actual,i, bajar, saltar, quieto, gm
+        global corriendo, reloj, correr_actual,i, bajar, saltar, quieto, gm, agachado
         global px, py, k
         
         if gm==True:
@@ -83,8 +103,8 @@ class Jugador(pygame.sprite.Sprite):
             quieto= False
             if px < 250:
                 px+=15
-            if py < 460:
-                py +=15
+            if py < 470:
+                py +=10
             self.rect.center = (px , py) 
             self.image=pygame.transform.scale(Muerto[0], (150, 175))
             
@@ -116,11 +136,19 @@ class Jugador(pygame.sprite.Sprite):
                 if k>=6:    
                     bajar = True
                     py +=30
-                    if py == 460:
+                    if py >= 460:
                         saltar=False        
                         corriendo= True
                         self.rect.center = (px , py)    
                         k=0
                         bajar = False
+        if agachado ==True:
+            self.image=pygame.transform.scale(Agacharse[correr_actual], (150, 100))
+            saltar=False
+            bajar=False
+            corriendo=True
+            self.rect.center = (px , py+75) 
+        else:
+            self.rect.center = (px , py) 
         
     
