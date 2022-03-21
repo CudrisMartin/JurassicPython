@@ -63,30 +63,33 @@ def recargaPantalla():
         
         Pantalla.blit(fondo, (x_relativa, 0))
         if play== False:
-            MostrarTexto(Pantalla, consolas, "Espacio=Iniciar", Negro, 30, 445 ,123)
-            MostrarTexto(Pantalla, consolas, "Esc=Salir", Negro, 30, 445 , 53)
-            MostrarTexto(Pantalla, consolas, "Abajo=Agacharse", Negro, 30, 445 , 283)
-            MostrarTexto(Pantalla, consolas, "Espacio=Iniciar", Blanco, 30, 450 ,120)
-            MostrarTexto(Pantalla, consolas, "Esc=Salir", Blanco, 30, 450 , 50)
-            MostrarTexto(Pantalla, consolas, "Abajo=Agacharse", Blanco, 30, 450 , 280)
-            MostrarTexto(Pantalla, consolas, "r=Volver a empezar", Negro, 30, 445 , 203)
-            MostrarTexto(Pantalla, consolas, "r=Volver a empezar", Blanco, 30, 450 , 200)
-            
-        enemigos.draw(Pantalla)
-   
+            MostrarTexto(Pantalla, consolas, "[Espacio]=Iniciar", Negro, 20, 190 ,133)
+            MostrarTexto(Pantalla, consolas, "[Esc]=Salir", Negro, 20, 129 , 93)
+            MostrarTexto(Pantalla, consolas, "[▼]=Agacharse", Negro, 20, 150 , 173)
+            MostrarTexto(Pantalla, consolas, "[Espacio]=Iniciar", Blanco, 20, 190 ,130)
+            MostrarTexto(Pantalla, consolas, "[Esc]=Salir", Blanco, 20, 129 , 90)
+            MostrarTexto(Pantalla, consolas, "[▼]=Agacharse", Blanco, 20, 150 , 170)
+            MostrarTexto(Pantalla, consolas, "[p]=♪+ Subir Volumen", Negro, 20, 220 , 213)
+            MostrarTexto(Pantalla, consolas, "[p]=♪+ Subir Volumen", Blanco, 20, 220 , 210)
+            MostrarTexto(Pantalla, consolas, "[o]=♪- Bajar Volumen", Negro, 20, 220 , 253)
+            MostrarTexto(Pantalla, consolas, "[o]=♪- Bajar Volumen", Blanco, 20, 220 , 250)
         
+            
+        enemigos.draw(Pantalla)   
         sprites.draw(Pantalla)
         pygame.display.flip()
         if play== False:
-            MostrarTexto(Pantalla, consolas, "Espacio=Iniciar", Negro, 30, 445 ,123)
-            MostrarTexto(Pantalla, consolas, "Esc=Salir", Negro, 30, 445 , 53)
-            MostrarTexto(Pantalla, consolas, "Abajo=Agacharse", Negro, 30, 445 , 283)
-            MostrarTexto(Pantalla, consolas, "Espacio=Iniciar", Blanco, 30, 450 ,120)
-            MostrarTexto(Pantalla, consolas, "Esc=Salir", Blanco, 30, 450 , 50)
-            MostrarTexto(Pantalla, consolas, "Abajo=Agacharse", Blanco, 30, 450 , 280)
-            MostrarTexto(Pantalla, consolas, "r=Volver a empezar", Negro, 30, 445 , 203)
-            MostrarTexto(Pantalla, consolas, "r=Volver a empezar", Blanco, 30, 450 , 200)
-    
+            MostrarTexto(Pantalla, consolas, "[Espacio]=Iniciar", Negro, 20, 190 ,133)
+            MostrarTexto(Pantalla, consolas, "[Esc]=Salir", Negro, 20, 129 , 93)
+            MostrarTexto(Pantalla, consolas, "[▼]=Agacharse", Negro, 20, 150 , 173)
+            MostrarTexto(Pantalla, consolas, "[Espacio]=Iniciar", Blanco, 20, 190 ,130)
+            MostrarTexto(Pantalla, consolas, "[Esc]=Salir", Blanco, 20, 129 , 90)
+            MostrarTexto(Pantalla, consolas, "[▼]=Agacharse", Blanco, 20, 150 , 170)
+            MostrarTexto(Pantalla, consolas, "[p]=♪+ Subir Volumen", Negro, 20, 220 , 213)
+            MostrarTexto(Pantalla, consolas, "[p]=♪+ Subir Volumen", Blanco, 20, 220 , 210)
+            MostrarTexto(Pantalla, consolas, "[o]=♪- Bajar Volumen", Negro, 20, 220 , 253)
+            MostrarTexto(Pantalla, consolas, "[o]=♪- Bajar Volumen", Blanco, 20, 220 , 250)
+            
     if play == True and gameover==False:
         if cambio ==0:
             cambio=18
@@ -97,6 +100,8 @@ def recargaPantalla():
     
     obtener(cambio)
     if gameover == True:
+        MostrarTexto(Pantalla, consolas, "[r]=Volver a empezar", Negro, 20, 452 , 42)
+        MostrarTexto(Pantalla, consolas, "[r]=Volver a empezar", Blanco, 20, 450 , 40)
         caer(gameover)
     if keys[pygame.K_r] and gameover == True:
         puntaje =0
@@ -192,8 +197,8 @@ while ejecutando:
     
     # Control del audio
     #Baja volumen
-    if keys[pygame.K_9] and pygame.mixer.music.get_volume() > 0.0:
+    if keys[pygame.K_o] and pygame.mixer.music.get_volume() > 0.0:
         pygame.mixer.music.set_volume(pygame.mixer.music.get_volume() - 0.01)
     #Sube volumen
-    if keys[pygame.K_0] and pygame.mixer.music.get_volume() < 1.0:
+    if keys[pygame.K_p] and pygame.mixer.music.get_volume() < 1.0:
         pygame.mixer.music.set_volume(pygame.mixer.music.get_volume() + 0.01)
