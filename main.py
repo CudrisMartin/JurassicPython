@@ -4,6 +4,7 @@ from jugador import Saltar
 from jugador import volver
 from jugador import caer
 from enemigos import Piedra
+from enemigos import Volador
 from enemigos import obtener
 from enemigos import reinicio
 
@@ -38,6 +39,7 @@ x=0
 y=0
 maxi=0
 cambio = 18
+
 #Función Recargar Pantalla#
 def recargaPantalla():
     global posicionXFondo, recorrido, cambio, play, gameover,x, y, puntaje, maxi
@@ -98,7 +100,7 @@ def recargaPantalla():
         cambio =0
     
     
-    obtener(cambio)
+    obtener(cambio, play, gameover)
     if gameover == True:
         MostrarTexto(Pantalla, consolas, "[r]=Volver a empezar", Negro, 20, 452 , 42)
         MostrarTexto(Pantalla, consolas, "[r]=Volver a empezar", Blanco, 20, 450 , 40)
@@ -166,8 +168,8 @@ sprites.add(jugador)
 
 obstaculo = Piedra()
 enemigos.add(obstaculo)
-
-
+ave = Volador()
+enemigos.add(ave)
 ejecutando = True #Bucle del juego#
 while ejecutando:
     
