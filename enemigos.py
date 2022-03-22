@@ -9,6 +9,8 @@ posicionY2 = 0
 play2= False
 reloj = 0
 actual = 0
+max = 400
+min = 200
 
 animacion = [pygame.image.load('Imagenes/Pajaro1.png'),
                  pygame.image.load('Imagenes/Pajaro2.png')]
@@ -25,7 +27,7 @@ def reinicio(gameover):
     if gameover==True:
         posicionX = 1300
         posicionX2 = 2865
-        posicionY2 = random.randint(200, 400)
+        posicionY2 = random.randint(min, max)
     
 
 class Piedra(pygame.sprite.Sprite):
@@ -52,7 +54,7 @@ class Volador(pygame.sprite.Sprite):
     def __init__(self):    
         global posicionX2, posicionY2, play
         posicionX2=2865
-        posicionY2 = random.randint(200, 400)
+        posicionY2 = random.randint(min, max)
         print(posicionY2)
         super().__init__()
         self.image = pygame.transform.scale(pygame.image.load('Imagenes/Pajaro2.png'), (75, 87))
@@ -66,12 +68,12 @@ class Volador(pygame.sprite.Sprite):
         if contadorNow < 25 and play2 == True and gm==False:
             if posicionX2 <= -700:
                 posicionX2=2700
-                posicionY2 = random.randint(200, 400)
+                posicionY2 = random.randint(min, max)
             posicionX2-=25
         elif play2 == True and gm == False:
             if posicionX2 <= -1200:
                 posicionX2=2700
-                posicionY2 = random.randint(200, 400)
+                posicionY2 = random.randint(min, max)
             posicionX2-=38
         
         reloj += 1

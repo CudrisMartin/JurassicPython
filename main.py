@@ -90,7 +90,7 @@ def recargaPantalla():
             cambio=18
         posicionXFondo-=cambio
     else:
-        cambio =0
+        cambio = 0
     
     
     obtener(cambio, play, gameover)
