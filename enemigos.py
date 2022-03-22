@@ -9,11 +9,11 @@ posicionY2 = 0
 play2= False
 reloj = 0
 actual = 0
-max = 400
-min = 200
+max = 380
+min = 150
 
 animacion = [pygame.image.load('Imagenes/Pajaro1.png'),
-                 pygame.image.load('Imagenes/Pajaro2.png')]
+            pygame.image.load('Imagenes/Pajaro2.png')]
 
 def obtener(contador,play, gameover):
     global contadorNow,play2, gm
@@ -35,16 +35,16 @@ class Piedra(pygame.sprite.Sprite):
     def __init__(self):    
         global posicionX
         super().__init__()
-        self.image = pygame.transform.scale(pygame.image.load('Imagenes/Piedra.png'), (95, 120))
+        self.image = pygame.transform.scale(pygame.image.load('Imagenes/Piedra2.png'), (95, 120))
         self.rect = self.image.get_rect()    
-        self.rect.center = (posicionX ,490 )  
+        self.rect.center = (posicionX ,420 )  
              
         
         
     def update(self):
         
         global posicionX, contadorNow, velocidad
-        self.rect.center = (posicionX , 490 )  
+        self.rect.center = (posicionX , 420 )  
         if posicionX <= -450:
             posicionX=1300
         posicionX-=contadorNow
@@ -52,10 +52,9 @@ class Piedra(pygame.sprite.Sprite):
 class Volador(pygame.sprite.Sprite):
     
     def __init__(self):    
-        global posicionX2, posicionY2, play
-        posicionX2=2865
+        global posicionX2, posicionY2, play, posicionX
+        posicionX2=posicionX  + 900
         posicionY2 = random.randint(min, max)
-        print(posicionY2)
         super().__init__()
         self.image = pygame.transform.scale(pygame.image.load('Imagenes/Pajaro2.png'), (75, 87))
         self.rect = self.image.get_rect()    
@@ -66,15 +65,15 @@ class Volador(pygame.sprite.Sprite):
         global posicionX2, posicionY2, velocidad, contadorNow, reloj, actual
         self.rect.center = (posicionX2 , posicionY2)  
         if contadorNow < 25 and play2 == True and gm==False:
-            if posicionX2 <= -700:
-                posicionX2=2700
+            if posicionX2 <= -800:
+                posicionX2=posicionX + 1000 
                 posicionY2 = random.randint(min, max)
-            posicionX2-=25
+            posicionX2-=27
         elif play2 == True and gm == False:
             if posicionX2 <= -1200:
-                posicionX2=2700
+                posicionX2=posicionX  + 1000 
                 posicionY2 = random.randint(min, max)
-            posicionX2-=38
+            posicionX2-=35
         
         reloj += 1
 
