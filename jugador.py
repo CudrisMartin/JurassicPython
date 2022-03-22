@@ -31,8 +31,8 @@ Salto = [pygame.image.load('Imagenes/Dinosaurio1.png'),
 
 Muerto = [pygame.image.load('Imagenes/DinosaurioMuerte.png')]
 muerto= False
-px=200
-py=460
+px=190
+py=400
 corriendo=False
 quieto=True
 reloj=0
@@ -45,14 +45,20 @@ bajar=False
 agachado=False
 aux=0
 
+
 def Saltar(keys , play, gameover):
-    global saltar, agachado, aux
-    global py
+    global saltar, agachado, aux, bajar
+    global py, key
     play2=play
+    key= keys
     if saltar == False:
         if keys[pygame.K_SPACE] and gameover==False:
+            sonisalto=pygame.mixer.Sound('Sonidos/Jump.mp3')
+            pygame.mixer.Sound.play(sonisalto)
+            sonisalto.set_volume(.2)
             saltar = True
             play2=True
+        
 
     if keys[pygame.K_DOWN] and gameover==False and saltar==False and play2==True:
         agachado = True
@@ -60,7 +66,7 @@ def Saltar(keys , play, gameover):
     else:
         agachado = False
         if aux>=1:
-            py=460
+            py=400
         aux=0
     if gameover==True:
         saltar =False
@@ -70,8 +76,8 @@ def Saltar(keys , play, gameover):
 def volver():
     global px, saltar, quieto, muerto
     global py, bajar, gm
-    px=200
-    py=460
+    px=180
+    py=400
     saltar=False   
     bajar=False
     quieto = True
@@ -90,7 +96,7 @@ class Jugador(pygame.sprite.Sprite):
     def __init__(self):
         global px, py
         super().__init__()
-        self.image=pygame.transform.scale(Quieto[0], (150, 175))
+        self.image=pygame.transform.scale(Quieto[0], (110, 135))
         self.rect = self.image.get_rect() 
         self.rect.center = (px , py) 
         
@@ -103,15 +109,15 @@ class Jugador(pygame.sprite.Sprite):
             quieto= False
             if px < 250:
                 px+=15
-            if py < 470:
+            if py < 400:
                 py +=10
             self.rect.center = (px , py) 
-            self.image=pygame.transform.scale(Muerto[0], (150, 175))
+            self.image=pygame.transform.scale(Muerto[0], (110, 135))
             
             gm=False
             
         if quieto == True and muerto==False:
-            self.image=pygame.transform.scale(Quieto[0], (150, 175))
+            self.image=pygame.transform.scale(Quieto[0], (110, 135))
         
         if corriendo == True: #PARA CORRER#
             reloj += 1
@@ -122,32 +128,36 @@ class Jugador(pygame.sprite.Sprite):
             
             if correr_actual >= 10:
                 correr_actual = 0
-            self.image=pygame.transform.scale(Corriendo[correr_actual], (150, 175))
+            self.image=pygame.transform.scale(Corriendo[correr_actual], (110, 135))
         if saltar == True: #PARA SALTAR#
             corriendo=False
             self.rect.center = (px , py) 
-            if py >= 220 and bajar ==False:
-                self.image=pygame.transform.scale(Salto[0], (150, 175))
+            if py >= 180 and bajar ==False:
+                self.image=pygame.transform.scale(Salto[0], (110, 135))
                 py -=30
             else:
-                self.image=pygame.transform.scale(Salto[1], (150, 175))
+                self.image=pygame.transform.scale(Salto[1], (110, 135))
                 if bajar == False:
                     k+=1
-                if k>=6:    
+                if k>=8:    
                     bajar = True
                     py +=30
-                    if py >= 460:
+                    if key[pygame.K_DOWN] and bajar==True:
+                        py +=12
+                    if py >= 400:
+                        py=400
                         saltar=False        
                         corriendo= True
                         self.rect.center = (px , py)    
                         k=0
                         bajar = False
         if agachado ==True:
-            self.image=pygame.transform.scale(Agacharse[correr_actual], (150, 100))
+            
+            self.image=pygame.transform.scale(Agacharse[correr_actual], (110, 95))
             saltar=False
             bajar=False
             corriendo=True
-            self.rect.center = (px , py+75) 
+            self.rect.center = (px , py+45) 
         else:
             self.rect.center = (px , py) 
         
