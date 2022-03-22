@@ -10,12 +10,14 @@ from enemigos import reinicio
 
 ###VARIABLES GLOBALES###
 #Recursos#
-fondo=pygame.image.load('Imagenes/Escenario.png')
-icono=pygame.image.load('Imagenes/Dino1idle.png')
+fondo=pygame.image.load('Imagenes/Fondo.png')
+icono=pygame.image.load('Imagenes/Piedra.png')
 #Colores#
-BlueSky= (44, 128, 201)
+BlueSky= (138, 220, 253)
 Orange= (255, 170, 79)
 BlueNigth= (29, 56, 145)
+Yellow = (224, 211, 27)
+Red = (197, 56, 13)
 Blanco = (255,255,255)
 Negro= (0,0,0)
 #Fuentes#
@@ -65,6 +67,8 @@ def recargaPantalla():
         
         Pantalla.blit(fondo, (x_relativa, 0))
         if play== False:
+            pygame.draw.rect(Pantalla, Yellow, [5, 55, 460, 230], 0)
+            pygame.draw.rect(Pantalla, Red, [10, 60, 450, 220], 0)
             MostrarTexto(Pantalla, consolas, "[Espacio]=Iniciar", Negro, 20, 190 ,133)
             MostrarTexto(Pantalla, consolas, "[Esc]=Salir", Negro, 20, 129 , 93)
             MostrarTexto(Pantalla, consolas, "[▼]=Agacharse", Negro, 20, 150 , 173)
@@ -80,18 +84,7 @@ def recargaPantalla():
         enemigos.draw(Pantalla)   
         sprites.draw(Pantalla)
         pygame.display.flip()
-        if play== False:
-            MostrarTexto(Pantalla, consolas, "[Espacio]=Iniciar", Negro, 20, 190 ,133)
-            MostrarTexto(Pantalla, consolas, "[Esc]=Salir", Negro, 20, 129 , 93)
-            MostrarTexto(Pantalla, consolas, "[▼]=Agacharse", Negro, 20, 150 , 173)
-            MostrarTexto(Pantalla, consolas, "[Espacio]=Iniciar", Blanco, 20, 190 ,130)
-            MostrarTexto(Pantalla, consolas, "[Esc]=Salir", Blanco, 20, 129 , 90)
-            MostrarTexto(Pantalla, consolas, "[▼]=Agacharse", Blanco, 20, 150 , 170)
-            MostrarTexto(Pantalla, consolas, "[p]=♪+ Subir Volumen", Negro, 20, 220 , 213)
-            MostrarTexto(Pantalla, consolas, "[p]=♪+ Subir Volumen", Blanco, 20, 220 , 210)
-            MostrarTexto(Pantalla, consolas, "[o]=♪- Bajar Volumen", Negro, 20, 220 , 253)
-            MostrarTexto(Pantalla, consolas, "[o]=♪- Bajar Volumen", Blanco, 20, 220 , 250)
-            
+        
     if play == True and gameover==False:
         if cambio ==0:
             cambio=18
