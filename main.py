@@ -10,16 +10,18 @@ from enemigos import reinicio
 
 ###VARIABLES GLOBALES###
 #Recursos#
-fondo=pygame.image.load('Imagenes/Fondo.png')
-icono=pygame.image.load('Imagenes/Piedra.png')
+fondo=pygame.image.load('Imagenes/FondoPrueba.png')
+icono=pygame.image.load('Imagenes/Logo.png')
+pygame.display.set_caption('T-rex Runner')
 #Colores#
 BlueSky= (138, 220, 253)
-Orange= (255, 170, 79)
+Orange= (179, 121, 52)
 BlueNigth= (29, 56, 145)
-Yellow = (224, 211, 27)
-Red = (197, 56, 13)
+Yellow = (231, 204, 53)
+Green = (126, 194, 129)
 Blanco = (255,255,255)
 Negro= (0,0,0)
+BlancoMax = (255,255,255)
 #Fuentes#
 consolas= 'PressStart2P-Regular.ttf'
 #Ancho y alto de Pantalla#
@@ -44,12 +46,13 @@ cambio = 18
 
 #Función Recargar Pantalla#
 def recargaPantalla():
-    global posicionXFondo, recorrido, cambio, play, gameover,x, y, puntaje, maxi
+    global posicionXFondo, recorrido, cambio, play, gameover,x, y, puntaje, maxi, BlancoMax
     colorFondo()
     if play== True and gameover==False:
-        puntaje +=1
+        puntaje +=5
         if puntaje> maxi:
             maxi=puntaje
+            BlancoMax = Yellow
     
     x_relativa = posicionXFondo % fondo.get_rect().width
     
@@ -59,16 +62,21 @@ def recargaPantalla():
     MostrarTexto(Pantalla, consolas, str(puntaje).zfill(7), Negro, 20, 803 , 40)
     MostrarTexto(Pantalla, consolas, str(puntaje).zfill(7), Blanco, 20, 800 , 40)
     MostrarTexto(Pantalla, consolas, "Max:" +str(maxi).zfill(7), Negro, 18, 113 , 40)
-    MostrarTexto(Pantalla, consolas, "Max:" +str(maxi).zfill(7), Blanco, 18, 110 , 40)
+    MostrarTexto(Pantalla, consolas, "Max:" +str(maxi).zfill(7), BlancoMax, 18, 110 , 40)
     
     
     if x_relativa < w:
         recorrido +=1
         
         Pantalla.blit(fondo, (x_relativa, 0))
+        MostrarTexto(Pantalla, consolas, str(puntaje).zfill(7), Negro, 20, 803 , 40)
+        MostrarTexto(Pantalla, consolas, str(puntaje).zfill(7), Blanco, 20, 800 , 40)
+        MostrarTexto(Pantalla, consolas, "Max:" +str(maxi).zfill(7), Negro, 18, 113 , 40)
+        MostrarTexto(Pantalla, consolas, "Max:" +str(maxi).zfill(7), BlancoMax, 18, 110 , 40)
+        
         if play== False:
             pygame.draw.rect(Pantalla, Yellow, [5, 55, 460, 230], 0)
-            pygame.draw.rect(Pantalla, Red, [10, 60, 450, 220], 0)
+            pygame.draw.rect(Pantalla, Green, [10, 60, 450, 220], 0)
             MostrarTexto(Pantalla, consolas, "[Espacio]=Iniciar", Negro, 20, 190 ,133)
             MostrarTexto(Pantalla, consolas, "[Esc]=Salir", Negro, 20, 129 , 93)
             MostrarTexto(Pantalla, consolas, "[▼]=Agacharse", Negro, 20, 150 , 173)
@@ -96,9 +104,10 @@ def recargaPantalla():
     obtener(cambio, play, gameover)
     if gameover == True:
         MostrarTexto(Pantalla, consolas, "[r]=Volver a empezar", Negro, 20, 452 , 42)
-        MostrarTexto(Pantalla, consolas, "[r]=Volver a empezar", Blanco, 20, 450 , 40)
+        MostrarTexto(Pantalla, consolas, "[r]=Volver a empezar", Yellow, 20, 450 , 40)
         caer(gameover)
     if keys[pygame.K_r] and gameover == True:
+        BlancoMax = (255,255,255)
         puntaje =0
         volver()
         jugador.rect.center = (200 , 460) 
@@ -187,7 +196,10 @@ while ejecutando:
         corriendo= False
         saltar=False
         gameover = True 
-        jugador.image = pygame.transform.scale(pygame.image.load('Imagenes/DinosaurioMuerte.png'), (150, 175))
+        sonisalto=pygame.mixer.Sound('Sonidos/Loser.mp3')
+        pygame.mixer.Sound.play(sonisalto)
+        sonisalto.set_volume(.2)
+        jugador.image = pygame.transform.scale(pygame.image.load('Imagenes/DinosaurioMuerte.png'), (110, 135))
     
     
     # Control del audio
