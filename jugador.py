@@ -44,7 +44,7 @@ gm= False
 bajar=False
 agachado=False
 aux=0
-
+play2=False
 
 def Saltar(keys , play, gameover):
     global saltar, agachado, aux, bajar
@@ -57,6 +57,8 @@ def Saltar(keys , play, gameover):
             pygame.mixer.Sound.play(sonisalto)
             sonisalto.set_volume(.2)
             saltar = True
+            
+        if bajar == False and corriendo == True:
             play2=True
         
 
@@ -139,11 +141,11 @@ class Jugador(pygame.sprite.Sprite):
                 self.image=pygame.transform.scale(Salto[1], (110, 135))
                 if bajar == False:
                     k+=1
-                if k>=8:    
+                if k>=7:    
                     bajar = True
                     py +=30
                     if key[pygame.K_DOWN] and bajar==True:
-                        py +=12
+                        py += 20
                     if py >= 400:
                         py=400
                         saltar=False        
@@ -151,6 +153,7 @@ class Jugador(pygame.sprite.Sprite):
                         self.rect.center = (px , py)    
                         k=0
                         bajar = False
+                        play2=True
         if agachado ==True:
             
             self.image=pygame.transform.scale(Agacharse[correr_actual], (110, 95))
