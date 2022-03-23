@@ -38,15 +38,18 @@ puntaje=0
 corriendo=True
 gameover=False
 play = False
+mostrar = True
 contador=0
 x=0
 y=0
 maxi=0
+aux2=0
 cambio = 18
+
 
 #Función Recargar Pantalla#
 def recargaPantalla():
-    global posicionXFondo, recorrido, cambio, play, gameover,x, y, puntaje, maxi, BlancoMax
+    global posicionXFondo, recorrido, cambio, play, gameover,x, y, puntaje, maxi, BlancoMax, aux2, mostrar
     colorFondo()
     if play== True and gameover==False:
         puntaje +=5
@@ -75,18 +78,22 @@ def recargaPantalla():
         MostrarTexto(Pantalla, consolas, "Max:" +str(maxi).zfill(7), BlancoMax, 18, 110 , 40)
         
         if play== False:
-            pygame.draw.rect(Pantalla, Yellow, [5, 55, 460, 230], 0)
-            pygame.draw.rect(Pantalla, Green, [10, 60, 450, 220], 0)
-            MostrarTexto(Pantalla, consolas, "[Espacio]=Iniciar", Negro, 20, 190 ,133)
-            MostrarTexto(Pantalla, consolas, "[Esc]=Salir", Negro, 20, 129 , 93)
-            MostrarTexto(Pantalla, consolas, "[▼]=Agacharse", Negro, 20, 150 , 173)
-            MostrarTexto(Pantalla, consolas, "[Espacio]=Iniciar", Blanco, 20, 190 ,130)
-            MostrarTexto(Pantalla, consolas, "[Esc]=Salir", Blanco, 20, 129 , 90)
-            MostrarTexto(Pantalla, consolas, "[▼]=Agacharse", Blanco, 20, 150 , 170)
-            MostrarTexto(Pantalla, consolas, "[p]=♪+ Subir Volumen", Negro, 20, 220 , 213)
-            MostrarTexto(Pantalla, consolas, "[p]=♪+ Subir Volumen", Blanco, 20, 220 , 210)
-            MostrarTexto(Pantalla, consolas, "[o]=♪- Bajar Volumen", Negro, 20, 220 , 253)
-            MostrarTexto(Pantalla, consolas, "[o]=♪- Bajar Volumen", Blanco, 20, 220 , 250)
+            
+            if keys[pygame.K_SPACE]:
+                mostrar=False
+            if mostrar == True:
+                pygame.draw.rect(Pantalla, Yellow, [5, 55, 460, 230], 0)
+                pygame.draw.rect(Pantalla, Green, [10, 60, 450, 220], 0)
+                MostrarTexto(Pantalla, consolas, "[Espacio]=Iniciar", Negro, 20, 190 ,133)
+                MostrarTexto(Pantalla, consolas, "[Esc]=Salir", Negro, 20, 129 , 93)
+                MostrarTexto(Pantalla, consolas, "[▼]=Agacharse", Negro, 20, 150 , 173)
+                MostrarTexto(Pantalla, consolas, "[Espacio]=Iniciar", Blanco, 20, 190 ,130)
+                MostrarTexto(Pantalla, consolas, "[Esc]=Salir", Blanco, 20, 129 , 90)
+                MostrarTexto(Pantalla, consolas, "[▼]=Agacharse", Blanco, 20, 150 , 170)
+                MostrarTexto(Pantalla, consolas, "[p]=♪+ Subir Volumen", Negro, 20, 220 , 213)
+                MostrarTexto(Pantalla, consolas, "[p]=♪+ Subir Volumen", Blanco, 20, 220 , 210)
+                MostrarTexto(Pantalla, consolas, "[o]=♪- Bajar Volumen", Negro, 20, 220 , 253)
+                MostrarTexto(Pantalla, consolas, "[o]=♪- Bajar Volumen", Blanco, 20, 220 , 250)
         
             
         enemigos.draw(Pantalla)   
@@ -107,6 +114,8 @@ def recargaPantalla():
         MostrarTexto(Pantalla, consolas, "[r]=Volver a empezar", Yellow, 20, 450 , 40)
         caer(gameover)
     if keys[pygame.K_r] and gameover == True:
+        mostrar=True
+        aux2=0
         BlancoMax = (255,255,255)
         puntaje =0
         volver()
@@ -196,9 +205,12 @@ while ejecutando:
         corriendo= False
         saltar=False
         gameover = True 
-        sonisalto=pygame.mixer.Sound('Sonidos/Loser.mp3')
-        pygame.mixer.Sound.play(sonisalto)
-        sonisalto.set_volume(.2)
+        while aux2==0:
+            sonisalto=pygame.mixer.Sound('Sonidos/Loser.mp3')
+            pygame.mixer.Sound.play(sonisalto)
+            sonisalto.set_volume(.2)
+            aux2=1
+        
         jugador.image = pygame.transform.scale(pygame.image.load('Imagenes/DinosaurioMuerte.png'), (110, 135))
     
     
